@@ -17,9 +17,9 @@ const filtersSlice = createSlice({
   }
 });
 
-const {actions, reducers} = filtersSlice;
+const {actions, reducer} = filtersSlice;
 
-export default reducers;
+export default reducer;
 export const {
   filtersFetching, 
   filtersFetched,
