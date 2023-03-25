@@ -7,36 +7,47 @@
       "element": "fire"
     },
     {
-      "id": 2,
-      "name": "Неизвестный герой",
-      "description": "Скрывающийся в тени",
-      "element": "wind"
+      "id": "5414cc86-1874-4ea7-9529-11cd80e0caf6",
+      "name": "Second Hero",
+      "description": "Allmost everything",
+      "element": "earth"
+    },
+    {
+      "id": "2366bb6d-3995-490c-a17c-9a26805c8b7a",
+      "name": "Roman",
+      "description": "coding",
+      "element": "fire"
     }
   ],
   "filters": [
     {
+      "id": "all",
       "name": "all",
-      "label": "Все",
+      "label": "All",
       "className": "btn-outline-dark"
     },
     {
+      "id": "fire",
       "name": "fire",
-      "label": "Огонь",
+      "label": "Fire",
       "className": "btn-danger"
     },
     {
+      "id": "water",
       "name": "water",
-      "label": "Вода",
+      "label": "Water",
       "className": "btn-primary"
     },
     {
+      "id": "wind",
       "name": "wind",
-      "label": "Ветер",
+      "label": "Wind",
       "className": "btn-success"
     },
     {
+      "id": "earth",
       "name": "earth",
-      "label": "Земля",
+      "label": "Earth",
       "className": "btn-secondary"
     }
   ]
