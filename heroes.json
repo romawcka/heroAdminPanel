@@ -5,18 +5,6 @@
       "name": "Первый герой",
       "description": "Первый герой в рейтинге!",
       "element": "fire"
-    },
-    {
-      "id": "5414cc86-1874-4ea7-9529-11cd80e0caf6",
-      "name": "Second Hero",
-      "description": "Allmost everything",
-      "element": "earth"
-    },
-    {
-      "id": "2366bb6d-3995-490c-a17c-9a26805c8b7a",
-      "name": "Roman",
-      "description": "coding",
-      "element": "fire"
     }
   ],
   "filters": [

@@ -1,10 +1,7 @@
-import {useHttp} from '../../hooks/http.hook';
-import { useEffect, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useCallback, useMemo} from 'react';
+import { useSelector } from 'react-redux';
 import { CSSTransition, TransitionGroup} from 'react-transition-group';
-import { createSelector } from "@reduxjs/toolkit";
-
-import { heroDeleted, fetchHeroes, selectAll } from './heroesSlice';
+import { useGetHeroesQuery, useDeleteHeroMutation } from '../../api/apiSlice';
 
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
@@ -12,40 +9,35 @@ import Spinner from '../spinner/Spinner';
 import './heroesList.scss';
 
 const HeroesList = () => {
+  const {
+    // здесь возвращается объект с различными сущностями
+    data: heroes = [], // полученные данные, запишутся в переменную heroes // 13 // 6
+    isLoading, // --> true, указывает, что впервые обращаемся к серверу за данными
+    isError, // --> true, указывает, что сущ-ет ошибка при общении с сервером
+  } = useGetHeroesQuery();
 
-    const filteredHeroesSelector = createSelector(
-        (state) => state.filters.activeFilter,
-        selectAll,
-        (filter, heroes) => {
-            if (filter === 'all') {
-                return heroes;
-            } else {
-                return heroes.filter(item => item.element === filter);
+  const [deleteHero] = useDeleteHeroMutation();
+
+  const activeFilter = useSelector(state => state.filters.activeFilter);
+
+  const filteredHeroes = useMemo(() => {
+    const filteredHeroes = heroes.slice(); // 17
+
+            if (activeFilter === 'all') {
+                return filteredHeroes;
+            } else { 
+                return filteredHeroes.filter(item => item.element === activeFilter);
             }
-        }
-    );
-
-    const filteredHeroes = useSelector(filteredHeroesSelector),
-          heroesLoadingStatus = useSelector(state => state.heroes.heroesLoadingStatus),
-          dispatch = useDispatch(),
-          {request} = useHttp();
-
-    useEffect(() => {
-        dispatch(fetchHeroes());
-        // eslint-disable-next-line
+        }, [heroes, activeFilter])
+    
+    const onDelete = useCallback((id) => {
+      deleteHero(id)
+        // eslint-disable-next-line  
     }, []);
 
-    const onDelete = useCallback((id) => {
-        request(`http://localhost:3001/heroes/${id}`, "DELETE")
-            .then(data => console.log(data, 'Deleted'))
-            .then(dispatch(heroDeleted(id)))
-            .catch(err => console.log(err));
-        // eslint-disable-next-line  
-    }, [request]);
-
-    if (heroesLoadingStatus === "loading") {
+    if (isLoading) {
         return <Spinner/>;
-    } else if (heroesLoadingStatus === "error") {
+    } else if (isError) {
         return <h5 className="text-center mt-5">Loading Error</h5>
     }
 
