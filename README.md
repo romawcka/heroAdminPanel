@@ -1,1 +1,1 @@
-This is test project with hero admin panel!
+The complete project based on JS + React/Redux with RTK Query
